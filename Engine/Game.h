@@ -23,6 +23,8 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include "ParticleSystem2D.h"
+#include "Source/FrameTimer.h"
 
 class Game
 {
@@ -42,5 +44,7 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	ParticleSystem2D ps;
+	FrameTimer ft;
 	/********************************/
 };

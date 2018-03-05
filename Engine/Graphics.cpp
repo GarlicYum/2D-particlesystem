@@ -316,6 +316,32 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
+void Graphics::DrawSquare(const Vec2D & pos, float size, Color & color)
+{
+	for (int y = (int)pos.y; y < (int)(pos.y + size); y++)
+		for (int x = (int)pos.x; x < (int)(pos.x + size); x++)
+			if (x > 0 && x < ScreenWidth && y > 0 && y < ScreenHeight)
+				PutPixel(x, y, color);
+}
+
+void Graphics::DrawCircle(const Vec2D & pos, float radius, Color & color)
+{
+	const float radiSq = radius * radius;
+
+	for (int y = (int)(pos.y - radius); y < (int)(pos.y + radius); y++)
+	{
+		for (int x = (int)(pos.x - radius); x < (int)(pos.x + radius); x++)
+		{
+			float xDiff = pos.x - x;
+			float yDiff = pos.y - y;
+			if ((xDiff * xDiff) + (yDiff * yDiff) <= radiSq)
+				if (x > 0 && x < ScreenWidth && y > 0 && y < ScreenHeight)
+					PutPixel(x, y, color);
+		}
+	}
+		
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception

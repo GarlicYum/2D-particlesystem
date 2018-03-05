@@ -20,12 +20,26 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "Source/ParticleSystemData.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd )
+	wnd(wnd),
+	gfx(wnd)
 {
+	ParticleSystemData psData;
+	psData.birthColor = Colors::Red;
+	psData.deathColor = Colors::Yellow;
+	psData.gravity = Vec2D(0.0f, 2.0f);
+	psData.lifeTime = 4.0f;
+	psData.maxVel = Vec2D(70.0f, 100.0f);
+	psData.minVel = Vec2D(-70.0f, -100.0f);
+	psData.position = Vec2D(400.0f, 100.0f);
+	psData.shape = Shapes::SHAPE_CIRCLE;
+	psData.minSize = 5.0f;
+	psData.maxSize = 10.0f;
+	psData.spawnRate = 5;
+	ps = ParticleSystem2D(psData);
 }
 
 void Game::Go()
@@ -38,8 +52,11 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float dt = ft.Mark();
+	ps.Advance(dt);
 }
 
 void Game::ComposeFrame()
 {
+	ps.Render(gfx);
 }
