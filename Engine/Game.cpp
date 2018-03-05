@@ -30,14 +30,14 @@ Game::Game(MainWindow& wnd)
 	ParticleSystemData psData;
 	psData.birthColor = Colors::Yellow;
 	psData.deathColor = Colors::Red;
-	psData.gravity = Vec2D(0.0f, 2.0f);
+	psData.gravity = Vec2D(0.0f, -1.0f);
 	psData.lifeTime = 2.0f;
-	psData.maxVel = Vec2D(200.0f, 10.0f);
-	psData.minVel = Vec2D(100.0f, -100.0f);
-	psData.position = Vec2D(400.0f, 100.0f);
+	psData.maxVel = Vec2D(20.0f, 5.0f);
+	psData.minVel = Vec2D(-20.0f, -60.0f);
+	psData.position = Vec2D(400.0f, 300.0f);
 	psData.shape = Shapes::SHAPE_CIRCLE;
-	psData.minSize = 5.0f;
-	psData.maxSize = 10.0f;
+	psData.minSize = 10.0f;
+	psData.maxSize = 20.0f;
 	psData.spawnRate = 5;
 	ps = ParticleSystem2D(psData);
 }
