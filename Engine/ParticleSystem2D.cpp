@@ -8,10 +8,10 @@ ParticleSystem2D::ParticleSystem2D(ParticleSystemData& data) :
 
 void ParticleSystem2D::Spawn()
 {
+	std::random_device rd;
+	std::mt19937 rng(rd());
 	for (int i = 0; i < m_Data.spawnRate; i++)
 	{
-		std::random_device rd;
-		std::mt19937 rng(rd());
 		std::uniform_real_distribution<float> xVel(m_Data.minVel.x, m_Data.maxVel.x);
 		std::uniform_real_distribution<float> yVel(m_Data.minVel.y, m_Data.maxVel.y);
 		std::uniform_real_distribution<float> size(m_Data.minSize, m_Data.maxSize);
