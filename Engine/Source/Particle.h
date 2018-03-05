@@ -18,4 +18,5 @@ private:
 	bool m_Dead;
 	Color m_Color;
 	float m_TotalLifeTime;
+	float m_BlendFactor;
 };

@@ -307,6 +307,15 @@ void Graphics::BeginFrame()
 	memset( pSysBuffer,0u,sizeof( Color ) * Graphics::ScreenHeight * Graphics::ScreenWidth );
 }
 
+Color Graphics::GetPixel(int x, int y) const
+{
+	assert(x >= 0);
+	assert(x < int(Graphics::ScreenWidth));
+	assert(y >= 0);
+	assert(y < int(Graphics::ScreenHeight));
+	return pSysBuffer[Graphics::ScreenWidth * y + x];
+}
+
 void Graphics::PutPixel( int x,int y,Color c )
 {
 	assert( x >= 0 );
@@ -316,15 +325,23 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
-void Graphics::DrawSquare(const Vec2D & pos, float size, Color & color)
+void Graphics::DrawSquare(const Vec2D & pos, float size, Color & color, float blendFactor)
 {
 	for (int y = (int)pos.y; y < (int)(pos.y + size); y++)
 		for (int x = (int)pos.x; x < (int)(pos.x + size); x++)
 			if (x > 0 && x < ScreenWidth && y > 0 && y < ScreenHeight)
-				PutPixel(x, y, color);
+			{
+				const Color dstPixel = GetPixel(x, y);
+				const Color blendedPixel = {
+					unsigned char(dstPixel.GetR() * blendFactor + color.GetR() * (1.0f - blendFactor)),
+					unsigned char(dstPixel.GetG() * blendFactor + color.GetG() * (1.0f - blendFactor)),
+					unsigned char(dstPixel.GetB() * blendFactor + color.GetB() * (1.0f - blendFactor))
+				};
+				PutPixel(x, y, blendedPixel);
+			}
 }
 
-void Graphics::DrawCircle(const Vec2D & pos, float radius, Color & color)
+void Graphics::DrawCircle(const Vec2D & pos, float radius, Color & color, float blendFactor)
 {
 	const float radiSq = radius * radius;
 
@@ -336,10 +353,18 @@ void Graphics::DrawCircle(const Vec2D & pos, float radius, Color & color)
 			float yDiff = pos.y - y;
 			if ((xDiff * xDiff) + (yDiff * yDiff) <= radiSq)
 				if (x > 0 && x < ScreenWidth && y > 0 && y < ScreenHeight)
-					PutPixel(x, y, color);
+				{
+					const Color dstPixel = GetPixel(x, y);
+					const Color blendedPixel = {
+						unsigned char(dstPixel.GetR() * blendFactor + color.GetR() * (1.0f - blendFactor)),
+						unsigned char(dstPixel.GetG() * blendFactor + color.GetG() * (1.0f - blendFactor)),
+						unsigned char(dstPixel.GetB() * blendFactor + color.GetB() * (1.0f - blendFactor))
+					};
+					PutPixel(x, y, blendedPixel);
+				}
 		}
 	}
-		
+
 }
 
 

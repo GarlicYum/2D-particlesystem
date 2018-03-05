@@ -28,12 +28,12 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd)
 {
 	ParticleSystemData psData;
-	psData.birthColor = Colors::Red;
-	psData.deathColor = Colors::Yellow;
+	psData.birthColor = Colors::Yellow;
+	psData.deathColor = Colors::Red;
 	psData.gravity = Vec2D(0.0f, 2.0f);
-	psData.lifeTime = 4.0f;
-	psData.maxVel = Vec2D(70.0f, 100.0f);
-	psData.minVel = Vec2D(-70.0f, -100.0f);
+	psData.lifeTime = 2.0f;
+	psData.maxVel = Vec2D(200.0f, 10.0f);
+	psData.minVel = Vec2D(100.0f, -100.0f);
 	psData.position = Vec2D(400.0f, 100.0f);
 	psData.shape = Shapes::SHAPE_CIRCLE;
 	psData.minSize = 5.0f;

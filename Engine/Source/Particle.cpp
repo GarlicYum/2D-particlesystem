@@ -5,6 +5,7 @@ Particle::Particle(ParticleData& data) :
 	, m_Dead(false)
 	, m_Color(data.birthColor)
 	, m_TotalLifeTime(data.lifeTime)
+	, m_BlendFactor(0.0f)
 {
 }
 
@@ -12,6 +13,8 @@ void Particle::Advance(float dt)
 {
 	m_Data.position += m_Data.velocity * dt;
 	m_Data.lifeTime -= dt;
+
+	m_BlendFactor += dt / m_TotalLifeTime;
 
 	float r = (float)m_Data.birthColor.GetR() + (m_TotalLifeTime - m_Data.lifeTime) / m_TotalLifeTime * (float)(m_Data.deathColor.GetR() - m_Data.birthColor.GetR());
 	float g = (float)m_Data.birthColor.GetG() + (m_TotalLifeTime - m_Data.lifeTime) / m_TotalLifeTime * (float)(m_Data.deathColor.GetG() - m_Data.birthColor.GetG());
@@ -40,11 +43,11 @@ void Particle::Draw(Graphics& gfx)
 	switch(m_Data.shape)
 	{
 	case SHAPE_CIRCLE:
-		gfx.DrawCircle(m_Data.position, m_Data.size / 2.0f, m_Color);
+		gfx.DrawCircle(m_Data.position, m_Data.size / 2.0f, m_Color, m_BlendFactor);
 		break;
 
 	case SHAPE_SQUARE:
-		gfx.DrawSquare(m_Data.position, m_Data.size, m_Color);
+		gfx.DrawSquare(m_Data.position, m_Data.size, m_Color, m_BlendFactor);
 		break;
 	}
 }
