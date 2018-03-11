@@ -38,7 +38,8 @@ Game::Game(MainWindow& wnd)
 	psData.shape = Shapes::SHAPE_CIRCLE;
 	psData.minSize = 10.0f;
 	psData.maxSize = 20.0f;
-	psData.spawnRate = 5;
+	psData.spawnRate = 10;
+	psData.frameRate = 60;
 	ps = ParticleSystem2D(psData);
 }
 

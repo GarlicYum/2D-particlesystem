@@ -3,7 +3,9 @@
 
 ParticleSystem2D::ParticleSystem2D(ParticleSystemData& data) :
 	 m_Data(data)
+	,m_SpawnTimer(0.0f)
 {
+	Spawn();
 }
 
 void ParticleSystem2D::Spawn()
@@ -31,7 +33,13 @@ void ParticleSystem2D::Spawn()
 
 void ParticleSystem2D::Advance(float dt)
 {
-	Spawn();
+	m_SpawnTimer += dt;
+
+	if (m_SpawnTimer >= (1.0f / (float)m_Data.frameRate))
+	{
+		m_SpawnTimer = 0.0f;
+		Spawn();
+	}
 
 	for (size_t i = m_Particles.size() - 1; i > 0; i--)
 	{

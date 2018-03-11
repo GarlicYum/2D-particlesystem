@@ -19,4 +19,5 @@ private:
 
 	ParticleSystemData m_Data;
 	std::vector<Particle> m_Particles;
+	float m_SpawnTimer;
 };

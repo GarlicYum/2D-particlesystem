@@ -17,6 +17,7 @@ struct ParticleSystemData
 	float lifeTime;
 	Vec2D minVel;
 	Vec2D maxVel;
+	int frameRate;
 };
 
 struct ParticleData
